@@ -64,3 +64,16 @@ analysis/upgrade_scripts.tar.gz
 /analysis/
 /bundle_strings.txt
 /router.js
+# session build artifacts
+aarch64-linux-musl-cross/
+musl-cross*
+zig*
+base.gz
+pkgs*.gz
+campus_wan.sh
+night_report.sh
+bc*.bin
+wan_policy.sh
+ipt-ttl.ipk
+scutclient/
+scutclient_aarch64
