@@ -68,6 +68,11 @@ device_local.py.example  本机设备参数模板（真实 device_local.py 已 g
 
 使用：`cp device_local.py.example device_local.py` 填入自己设备的值，然后 `pip install paramiko passlib`。
 
+## 相关仓库
+
+校园网接入方案与现场侦察记录因含网络拓扑细节，放在私有仓库 `scut-lg6151m`（未公开）。
+本仓库只保留 CPE 本体的解锁/刷机研究。
+
 ## 与前人工作的关系
 
 本方法建立在社区已有成果之上，致谢：
