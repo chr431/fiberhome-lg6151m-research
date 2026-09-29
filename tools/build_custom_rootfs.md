@@ -91,3 +91,22 @@ cat /proc/cmdline    # root=/dev/mmcblk0p26 bootslot=a
 dd if=/dev/mmcblk0p1 bs=1 skip=2048 count=32 | busybox hexdump -C
 # A: 0f 00 01 00 (succ=01 by zmtk) ; stock slot B untouched
 ```
+
+## v2 增量（已验证）：/data 持久钩子
+
+v1 基础上新增开机钩子——此后配置迭代只改 /data，不再重刷固件：
+
+- 新增 `/etc/init.d/zz_data_hook`（START=99）：后台执行 `/data/rc.extend.sh`（存在才执行）
+- **关键**：必须在镜像里同时创建 `/etc/rc.d/S99zz_data_hook -> ../init.d/zz_data_hook` 符号链接，
+  否则 OpenWrt init 根本不会调度它（第一次构建就漏了这步，靠开机日志定位）
+- `/data/rc.extend.sh` 内容按站点自定义（例：`sh /data/scut/restore_wan.sh`）
+
+## 经验教训（实战踩坑实录）
+
+- OpenWrt init 靠 `/etc/rc.d/S*` 符号链接调度：新增 init.d 脚本必须同时放 rc.d 链接
+- 改 eth1 MAC 前必须先 `ip link set eth1 nomaster`（还在桥里时 set MAC 返回 EBUSY 且**静默失败**）；改完要读回验证 + 重试
+- MAC 改写后载波重协商需要 10-15 秒：依赖链路的服务（802.1X 客户端等）必须先等 `/sys/class/net/eth1/carrier = 1`
+- 原厂 `DeviceInfo.X_UplinkCos` 节点切换（Web 后台"上网方式"）会触发守护进程重配端口/防火墙并**清空全部手工运行时配置**——自定义多 WAN 场景应把它钉死为 `nb5g`
+- busybox `reboot` 偶发 I/O error；可靠硬复位：`sync` 后 `echo b > /proc/sysrq-trigger`
+- SSH exec 里 `(...)&` 形式的后台任务会被信道关闭杀掉：用 `nohup` 包裹或同步执行
+- 设备端 bash 的 `$(...)`/引号经过多层转发极易损坏：复杂命令一律推脚本文件上去执行
