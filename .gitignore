@@ -1,0 +1,66 @@
+# local device values (personal data)
+device_local.py
+
+# keys
+id_ed25519_lg
+id_rsa_lg
+*.pub
+
+# backups & firmware dumps (too big / contain personal data)
+backup/
+rootfs_b/
+received/
+*.squashfs
+*.img
+*.img.gz
+*.bin
+*.ipk
+
+# scratch files from the research sessions
+*.log
+__pycache__/
+toor_shadow_line.txt
+rc_local_add.txt
+shadow_new
+shadow_b64.txt
+bc10*.bin
+login_js_sample
+main.html
+index.html
+sms_send_src.txt
+util.js
+checkBrowser.js*
+main.js
+global_var.js
+page_*.html
+srcprobe.js
+probe_*.js
+saved_*.js
+lang_main_res.js
+ref_*.js
+ref/
+polyfill.min.js
+src_index.js
+analysis/lk_b.bin
+analysis/upgrade_scripts.tar.gz
+
+# legacy session scripts at repo root (superseded by tools/)
+/login_and_read.py
+/lgssh.py
+/rearm.py
+/telnet_read.py
+/telnet_probe.py
+/intel_shell.py
+/crack_root.py
+/pull_file.py
+/push_file.py
+/recv_server.py
+/parse_gpt.py
+/extract_strings.py
+/recon_api.py
+/test_rsa.py
+
+# local-only analysis dir
+/analysis/
+/bundle_strings.txt
+/router.js
