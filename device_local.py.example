@@ -18,3 +18,6 @@ TOOR_PASS = "<YOUR_CHOSEN_ROOT_PASSWORD>"
 # MD5-crypt hash of TOOR_PASS, generate with:
 #   openssl passwd -1 -salt <yoursalt> '<YOUR_CHOSEN_ROOT_PASSWORD>'
 TOOR_HASH = "<1_DOLLAR_MD5_HASH>"
+
+# --- MAC clone (registered at campus activation) ---
+WAN_CLONE_MAC = "<LAPTOP_ETHERNET_MAC>"
